@@ -105,18 +105,18 @@ class _HomePageState extends State<HomePage> {
                     ),
                     child: TextButton(
                       onPressed: (){
-                        setState(() {
-                          login = loginController.text.toString();
-                          pass = passController.text.toString();
-                          var user = User(login, pass);
-                          PrefService.storeUser(user);
-                          PrefService.loadUser().then((value) => {
-                            value.toString()
-                          });
-
-                          print(login);
-                          print(pass);
-                        });
+                        // setState(() {
+                        //   login = loginController.text.toString();
+                        //   pass = passController.text.toString();
+                        //   var user = User(login, pass);
+                        //   PrefService.storeUser(user);
+                        //   PrefService.loadUser().then((value) => {
+                        //     value.toString()
+                        //   });
+                        //
+                        //   print(login);
+                        //   print(pass);
+                        // });
                       },
                       child: Text("LOG IN", style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),),
                     ),

@@ -2,6 +2,7 @@
 import 'dart:convert';
 
 import 'package:flutter_advanced2/model/login.dart';
+import 'package:flutter_advanced2/model/register.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PrefService{
@@ -20,7 +21,7 @@ class PrefService{
     return prefs.remove("name");
   }
 
-  static storeUser(User user) async{
+  static storeUser(CreateUser user) async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String stringUser = jsonEncode(user);
     await prefs.setString('user', stringUser);
