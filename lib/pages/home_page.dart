@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced2/model/login.dart';
+import 'package:flutter_advanced2/pages/register_page.dart';
+import 'package:flutter_advanced2/sevice/gs_service.dart';
 import 'package:flutter_advanced2/sevice/prefs_service.dart';
 
 class HomePage extends StatefulWidget {
@@ -15,153 +17,88 @@ class _HomePageState extends State<HomePage> {
   var pass;
   final loginController = TextEditingController();
   final passController = TextEditingController();
-
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Container(
-        width: double.infinity,
-        color: Colors.white,
-        padding: EdgeInsets.only(left: 20, right: 20, bottom: 50, top: MediaQuery.of(context).size.width*0.25),
+        padding: EdgeInsets.all(30),
+        color: Colors.deepPurple.shade900,
+        width: MediaQuery.of(context).size.width,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Expanded(
               child: Column(
                 children: [
+                  SizedBox(height: MediaQuery.of(context).size.height/7,),
                   Container(
-                    width: MediaQuery.of(context).size.width*0.5,
-                    height: MediaQuery.of(context).size.width*0.5,
+                    height: MediaQuery.of(context).size.width/6,
+                    width: MediaQuery.of(context).size.width/6,
                     decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
                         image: DecorationImage(
                             image: AssetImage("assets/images/img.png"),
-                            fit: BoxFit.none
+                            fit: BoxFit.cover
                         )
-                    ),
-                  ),
-                  Text("Welcome back!", style: TextStyle(color: Colors.black, fontSize: 30, fontWeight: FontWeight.bold,),),
-                  // SizedBox(height: 10,),
-                  Text("Log in to your existant account of Q Allure", style: TextStyle(color: Colors.grey),),
-                  // SizedBox(height: 30,),
-                  Container(
-                    height: 60,
-                    padding: EdgeInsets.only(left: 10),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30),
-                        border: Border.all(
-                            width: 1,
-                            color: Colors.blue
-                        )
-                    ),
-                    child: TextField(
-                      controller: loginController,
-                      decoration: InputDecoration(
-                          border: InputBorder.none,
-                          prefixIcon: Icon(Icons.person_outline),
-                          hintText: "Login",
-                          hintStyle: TextStyle(color: Colors.grey)
-                      ),
-                      style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
                     ),
                   ),
                   SizedBox(height: 10,),
-                  Container(
-                    height: 60,
-                    padding: EdgeInsets.symmetric(horizontal: 10),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30),
-                        border: Border.all(
-                          width: 1,
-                          color: Colors.blue,
-                        )
-                    ),
-                    child: TextField(
-                      controller: passController,
-                      style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        prefixIcon: Icon(Icons.lock_open_outlined),
-                        hintText: "Password",
-                        hintStyle: TextStyle(color: Colors.grey),
-                      ),
+                  Text("Welcome Back!", style: TextStyle(fontSize: 30, color: Colors.grey, fontWeight: FontWeight.bold),),
+                  SizedBox(height: 5,),
+                  Text("Sign in to continue", style: TextStyle(fontSize: 20, color: Colors.grey, fontWeight: FontWeight.bold),),
+                  SizedBox(height: MediaQuery.of(context).size.height/18,),
+                  TextFormField(
+                    controller: loginController,
+                    style: TextStyle(color: Colors.grey, fontSize: 20),
+                    decoration: InputDecoration(
+                        prefixIcon: Icon(Icons.person_outline, color: Colors.grey, size: 25,),
+                        label: Text("User Name", style: TextStyle(color: Colors.grey,fontSize: 20),),
+                        border: UnderlineInputBorder()
                     ),
                   ),
-                  // SizedBox(height: 5,),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Text("Forgot Password?", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),)
-                    ],
+                  TextFormField(
+                    controller: passController,
+                    style: TextStyle(color: Colors.grey, fontSize: 20),
+                    decoration: InputDecoration(
+                        prefixIcon: Icon(Icons.lock_open_outlined, color: Colors.grey, size: 25,),
+                        label: Text("Password", style: TextStyle(color: Colors.grey,fontSize: 20),),
+                        border: UnderlineInputBorder(borderSide: BorderSide(color: Colors.white))
+                    ),
                   ),
-                  // SizedBox(height: 20,),
+                  SizedBox(height: MediaQuery.of(context).size.height*0.02,),
+                  Text("Forgot password?", style: TextStyle(color:Colors.grey),),
+                  SizedBox(height: MediaQuery.of(context).size.height*0.1,),
                   Container(
-                    width: MediaQuery.of(context).size.width/2,
-                    height: 40,
+                    height: 80,
+                    width: 80,
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30),
+                        borderRadius: BorderRadius.circular(40),
                         color: Colors.blue
                     ),
-                    child: TextButton(
+                    child: IconButton(
                       onPressed: (){
-                        // setState(() {
-                        //   login = loginController.text.toString();
-                        //   pass = passController.text.toString();
-                        //   var user = User(login, pass);
-                        //   PrefService.storeUser(user);
-                        //   PrefService.loadUser().then((value) => {
-                        //     value.toString()
-                        //   });
-                        //
-                        //   print(login);
-                        //   print(pass);
-                        // });
+                        setState(() {
+                          login = loginController.text;
+                          pass = passController.text;
+                          var user = User(login, pass);
+                          GetService.storeUser(user);
+                          print(GetService.loadUser().toJson());
+                        });
                       },
-                      child: Text("LOG IN", style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),),
+                      icon: Icon(Icons.arrow_forward,size: 40,color: Colors.white,),
                     ),
-                  ),
-                  // SizedBox(height: 60,),
-                  Text("Or connect using", style: TextStyle(color: Colors.grey, fontSize: 18),),
-                  // SizedBox(height: 30,),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        height: 35,
-                        width: 150,
-                        decoration: BoxDecoration(
-                            color: Colors.blue,
-                            borderRadius: BorderRadius.circular(12)
-                        ),
-                        child: TextButton(
-                          onPressed: (){},
-                          child: Text("Facebook", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),),
-                        ),
-                      ),
-                      SizedBox(width: 20,),
-                      Container(
-                        height: 35,
-                        width: 150,
-                        decoration: BoxDecoration(
-                            color: Colors.red,
-                            borderRadius: BorderRadius.circular(12)
-                        ),
-                        child: TextButton(
-                          onPressed: (){},
-                          child: Text("Google", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),),
-                        ),
-                      ),
-                    ],
-                  ),
+                  )
                 ],
               ),
             ),
             Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("Don't have a account?"),
-                TextButton(onPressed: (){}, child: Text("Sign Up"))
+                Text("Don`t have an account?", style: TextStyle(color: Colors.grey),),
+                TextButton(onPressed: (){
+                  Navigator.pushNamed(context, RegisterPage.id);
+                }, child: Text("SIGN UP"))
               ],
             )
           ],

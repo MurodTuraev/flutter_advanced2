@@ -8,14 +8,14 @@ class CreateUser {
 
   CreateUser(this.fullname, this.email, this.phone, this.password, this.confpassword);
 
-  CreateUser.fromJson(Map<String, dynamic> json)
+  CreateUser.fromJson(Map<Object, dynamic> json)
       : fullname = json['fullname'],
         email = json['email'],
         phone = json['phone'],
         password = json['password'],
         confpassword = json['confpassword'];
 
-  Map<String, dynamic> toJson() => {
+  Map<Object, dynamic> toJson() => {
     'fullname': fullname,
     'email': email,
     'phone': phone,

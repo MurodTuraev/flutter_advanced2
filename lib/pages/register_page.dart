@@ -1,208 +1,113 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced2/model/login.dart';
 import 'package:flutter_advanced2/model/register.dart';
-import 'package:flutter_advanced2/sevice/prefs_service.dart';
+import 'package:flutter_advanced2/pages/home_page.dart';
+import 'package:flutter_advanced2/sevice/gs_service.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
-  static final String id = "register_page";
+  static final String id = 'register_page';
 
   @override
   State<RegisterPage> createState() => _RegisterPageState();
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  final fullnameController = TextEditingController();
+  var login;
+  var pass;
+  var email;
+  var phone;
+  final loginController = TextEditingController();
+  final passController = TextEditingController();
   final emailController = TextEditingController();
   final phoneController = TextEditingController();
-  final passController = TextEditingController();
-  final conpassController = TextEditingController();
-  var _fullnameController;
-  var _emailController;
-  var _phoneController;
-  var _passController;
-  var _conpassController;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Container(
-        padding: EdgeInsets.only(top: 30, bottom: 50, left: 20, right: 20),
+        padding: EdgeInsets.all(30),
+        color: Colors.deepPurple.shade900,
         width: MediaQuery.of(context).size.width,
         child: Column(
           children: [
             Expanded(
               child: Column(
                 children: [
-                  Row(
-                    // mainAxisAlignment: MainAxisAlignment.start,
-                    // crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      IconButton(onPressed: (){}, icon: Icon(Icons.arrow_back, size: 30,))
-                    ],
-                  ),
-                  Text("Let`s Get Started!", style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),),
-                  SizedBox(height: 5,),
-                  Text("Create an account to Q Allure to get all features", style: TextStyle(color: Colors.grey, fontSize: 16),),
-                  SizedBox(height: 20,),
-                  Container(
-                    height: 60,
-                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30),
-                        border: Border.all(
-                            color: Colors.blue,
-                            width: 2
-                        )
-                    ),
-                    child: TextField(
-                      controller: fullnameController,
-                      style: TextStyle(color: Colors.blue, fontSize: 20,),
-                      decoration: InputDecoration(
-                          border: InputBorder.none,
-                          prefixIcon: Icon(Icons.person_outline,),
-                          hintText: "Fullname",
-                          hintStyle: TextStyle(color: Colors.grey,)
-                      ),
+                  SizedBox(height: MediaQuery.of(context).size.height/20,),
+                  Text("Create", style: TextStyle(fontSize: 30, color: Colors.grey, fontWeight: FontWeight.bold),),
+                  Text("Account", style: TextStyle(fontSize: 30, color: Colors.grey, fontWeight: FontWeight.bold),),
+                  SizedBox(height: MediaQuery.of(context).size.height/18,),
+                  TextFormField(
+                    controller: loginController,
+                    style: TextStyle(color: Colors.grey, fontSize: 20),
+                    decoration: InputDecoration(
+                        prefixIcon: Icon(Icons.person_outline, color: Colors.grey, size: 25,),
+                        label: Text("User Name", style: TextStyle(color: Colors.grey,fontSize: 20),),
+                        border: UnderlineInputBorder()
                     ),
                   ),
-                  SizedBox(height: 10,),
-                  Container(
-                    height: 60,
-                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30),
-                        border: Border.all(
-                            color: Colors.blue,
-                            width: 2
-                        )
-                    ),
-                    child: TextField(
-                      controller: emailController,
-                      style: TextStyle(color: Colors.blue, fontSize: 20,),
-                      decoration: InputDecoration(
-                          border: InputBorder.none,
-                          prefixIcon: Icon(Icons.mail_outline,),
-                          hintText: "Email",
-                          hintStyle: TextStyle(color: Colors.grey,)
-                      ),
+                  TextFormField(
+                    controller: emailController,
+                    style: TextStyle(color: Colors.grey, fontSize: 20),
+                    decoration: InputDecoration(
+                        prefixIcon: Icon(Icons.mail_outline, color: Colors.grey, size: 25,),
+                        label: Text("E-Mail", style: TextStyle(color: Colors.grey,fontSize: 20),),
+                        border: UnderlineInputBorder(borderSide: BorderSide(color: Colors.white))
                     ),
                   ),
-                  SizedBox(height: 10,),
-                  Container(
-                    height: 60,
-                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30),
-                        border: Border.all(
-                            color: Colors.blue,
-                            width: 2
-                        )
-                    ),
-                    child: TextField(
-                      controller: phoneController,
-                      style: TextStyle(color: Colors.blue, fontSize: 20,),
-                      decoration: InputDecoration(
-                          border: InputBorder.none,
-                          prefixIcon: Icon(Icons.phone_android_outlined,),
-                          hintText: "Phone",
-                          hintStyle: TextStyle(color: Colors.grey,)
-                      ),
+                  TextFormField(
+                    controller: phoneController,
+                    style: TextStyle(color: Colors.grey, fontSize: 20),
+                    decoration: InputDecoration(
+                        prefixIcon: Icon(Icons.phone_outlined, color: Colors.grey, size: 25,),
+                        label: Text("Phone Number", style: TextStyle(color: Colors.grey,fontSize: 20),),
+                        border: UnderlineInputBorder(borderSide: BorderSide(color: Colors.white))
                     ),
                   ),
-                  SizedBox(height: 10,),
-                  Container(
-                    height: 60,
-                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30),
-                        border: Border.all(
-                            color: Colors.blue,
-                            width: 2
-                        )
-                    ),
-                    child: TextField(
-                      controller: passController,
-                      style: TextStyle(color: Colors.blue, fontSize: 20,),
-                      decoration: InputDecoration(
-                          border: InputBorder.none,
-                          prefixIcon: Icon(Icons.lock_open_outlined,),
-                          hintText: "Password",
-                          hintStyle: TextStyle(color: Colors.grey,)
-                      ),
+                  TextFormField(
+                    controller: passController,
+                    style: TextStyle(color: Colors.grey, fontSize: 20),
+                    decoration: InputDecoration(
+                        prefixIcon: Icon(Icons.lock_open_outlined, color: Colors.grey, size: 25,),
+                        label: Text("Password", style: TextStyle(color: Colors.grey,fontSize: 20),),
+                        border: UnderlineInputBorder(borderSide: BorderSide(color: Colors.white))
                     ),
                   ),
-                  SizedBox(height: 10,),
+                  SizedBox(height: MediaQuery.of(context).size.height*0.1,),
                   Container(
-                    height: 60,
-                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                    height: 80,
+                    width: 80,
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30),
-                        border: Border.all(
-                            color: Colors.blue,
-                            width: 2
-                        )
-                    ),
-                    child: TextField(
-                      controller: conpassController,
-                      style: TextStyle(color: Colors.blue, fontSize: 20,),
-                      decoration: InputDecoration(
-                          border: InputBorder.none,
-                          prefixIcon: Icon(Icons.lock_open_outlined,),
-                          hintText: "Confirm Password",
-                          hintStyle: TextStyle(color: Colors.grey,)
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 10,),
-                  Container(
-                    height: 50,
-                    width: 200,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(25),
+                        borderRadius: BorderRadius.circular(40),
                         color: Colors.blue
                     ),
-                    child: TextButton(
+                    child: IconButton(
                       onPressed: (){
                         setState(() {
-                          _fullnameController = fullnameController.text.toString();
-                          _emailController = emailController.text.toString();
-                          _phoneController = phoneController.text.toString();
-                          _passController = passController.text.toString();
-                          _conpassController = conpassController.text.toString();
-                          var createuser = CreateUser(
-                              _fullnameController,
-                              _emailController,
-                              _phoneController,
-                              _passController,
-                              _conpassController
-                          );
-
-
-                          PrefService.storeUser(createuser);
-                          PrefService.loadUser().then((value) => {
-                            value.toString()
-                          });
-                          print(_fullnameController);
-                          print(_emailController);
-                          print(_phoneController);
-                          print(_passController);
-                          print(_conpassController);
+                          login = loginController.text;
+                          email = emailController.text;
+                          phone = phoneController.text;
+                          pass = passController.text;
+                          var user = CreateUser(login, email, phone, pass, pass);
+                          GetService.createUser(user);
+                          print(GetService.loadCreatedUser());
                         });
                       },
-                      child: Text("CREATE", style: TextStyle(color: Colors.white, fontSize: 20),),
+                      icon: Icon(Icons.arrow_forward,size: 40,color: Colors.white,),
                     ),
                   )
                 ],
               ),
             ),
             Row(
-              // crossAxisAlignment: CrossAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("Already have an account?"),
+                Text("Already have an account?", style: TextStyle(color: Colors.grey),),
                 TextButton(onPressed: (){
-
-                }, child: Text("Login here"),)
+                  Navigator.pushNamed(context, HomePage.id);
+                }, child: Text("SIGN IN"))
               ],
             )
           ],
