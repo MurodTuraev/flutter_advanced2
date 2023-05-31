@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced2/pages/home_page.dart';
+import 'package:flutter_advanced2/pages/login/sign_in.dart';
+import 'package:flutter_advanced2/pages/login/sign_up.dart';
 import 'package:flutter_advanced2/pages/register_page.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hive_flutter/adapters.dart';
@@ -20,10 +22,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const RegisterPage(),
+      home: const SignIn(),
       routes: {
         HomePage.id: (context) => HomePage(),
-        RegisterPage.id: (context) => RegisterPage()
+        RegisterPage.id: (context) => RegisterPage(),
+        SignUp.id: (context) => SignUp(),
+        SignIn.id: (context) => SignIn()
       },
     );
   }
