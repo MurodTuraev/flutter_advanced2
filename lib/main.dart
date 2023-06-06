@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const SignIn(),
+      home: const HomePage(),
       routes: {
         HomePage.id: (context) => HomePage(),
         RegisterPage.id: (context) => RegisterPage(),

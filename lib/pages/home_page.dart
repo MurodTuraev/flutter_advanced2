@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced2/model/login.dart';
+import 'package:flutter_advanced2/model/post.dart';
 import 'package:flutter_advanced2/pages/register_page.dart';
 import 'package:flutter_advanced2/sevice/gs_service.dart';
+import 'package:flutter_advanced2/sevice/http_service.dart';
 import 'package:flutter_advanced2/sevice/prefs_service.dart';
 
 class HomePage extends StatefulWidget {
@@ -13,6 +15,44 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    // _apiPost();
+    var post = Post("BMT", "12345", "23");
+    // _apiGetOne();
+    // _apiPostCreate(post);
+    // _apiPostUpdate(post);
+    _apiPostDelete();
+  }
+
+  void _apiPost(){
+    Network.GET(Network.API_LIST, Network.paramsEmpty()).then((value) => {
+      print(value.toString()),
+    });
+  }
+  void _apiGetOne(){
+    Network.GET(Network.API_GET_ONE+23.toString(), Network.paramsEmpty()).then((value) => {
+      print(value.toString()),
+    });
+  }
+
+  void _apiPostCreate(Post post){
+    Network.POST(Network.API_CREATE, Network.paramsCreate(post)).then((value) => {
+      value.toString(),
+    });
+  }
+  void _apiPostUpdate(Post post){
+    Network.PUT(Network.API_UPDATE+23.toString(), Network.paramsPut(post)).then((value) => {
+      print(value),
+    });
+  }
+
+  void _apiPostDelete(){
+    Network.DEL(Network.API_DELETE+23.toString(), Network.paramsEmpty()).then((value) => {
+      print(value),
+    });
+  }
   var login;
   var pass;
   final loginController = TextEditingController();
