@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter_advanced2/model/employee.dart';
 import 'package:http/http.dart';
 
 import '../model/post.dart';
@@ -71,9 +72,9 @@ class Network{
   static Map<String, String> paramsCreate(Post post){
     Map<String, String> params = Map();
     params.addAll({
-      "name": post.name!.toString(),
-      "salary": post.salary!.toString(),
-      "age": post.age!.toString(),
+      "employee_name": post.employee_name!.toString(),
+      "employee_salary": post.employee_salary!.toString(),
+      "employee_age": post.employee_age!.toString(),
     });
     return params;
   }
@@ -82,10 +83,18 @@ class Network{
   static Map<String, String> paramsPut(Post post){
     Map<String, String> params = Map();
     params.addAll({
-      "name": post.name.toString(),
-      "salary": post.salary.toString(),
-      "age": post.age.toString(),
+      "employee_name": post.employee_name.toString(),
+      "employee_salary": post.employee_salary.toString(),
+      "employee_age": post.employee_age.toString(),
     });
     return params;
+  }
+
+  // Parsing data
+
+  static Employee parsePostList(String response){
+    dynamic json = jsonDecode(response);
+    var data = Employee.fromJson(json);
+    return data;
   }
 }
