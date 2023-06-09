@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "693539578358",
+    "project_id": "herewego-33746",
+    "storage_bucket": "herewego-33746.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:693539578358:android:e23bf37618e5b85d1067d7",
+        "android_client_info": {
+          "package_name": "com.example.flutter_advanced2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "693539578358-r4it9rh7nihmecth4ddbtg7trdvs6omu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLmcQkAC7DNszftN2eR2H-udgp4_wtaTs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "693539578358-r4it9rh7nihmecth4ddbtg7trdvs6omu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
