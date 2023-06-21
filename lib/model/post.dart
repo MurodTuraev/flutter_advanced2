@@ -1,20 +1,23 @@
 
 class Post {
   // int? id;
-  String? employee_name;
-  String? employee_salary;
-  String? employee_age;
+  String? first_name;
+  String? last_name;
+  String? content;
+  String? date;
 
-  Post(this.employee_name, this.employee_salary, this.employee_age);
+  Post(this.first_name, this.last_name, this.content, this.date);
 
   Post.fromJson(Map<dynamic, dynamic> json)
-        :employee_name = json['employee_name'],
-        employee_salary = json['employee_salary'].toString(),
-        employee_age = json['employee_age'].toString();
+        :first_name = json['first_name'],
+        last_name = json['last_name'],
+        content = json['content'],
+        date = json['date'];
 
   Map<String, dynamic> toJson() => {
-    'employee_name': employee_name,
-    'employee_salary': employee_salary,
-    'employee_age': employee_age
+    'first_name': first_name,
+    'last_name': last_name,
+    'content': content,
+    'date': date
   };
 }

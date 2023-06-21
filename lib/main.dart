@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_advanced2/pages/create_page.dart';
 import 'package:flutter_advanced2/pages/home_page.dart';
 import 'package:flutter_advanced2/pages/login/sign_in.dart';
 import 'package:flutter_advanced2/pages/login/sign_up.dart';
@@ -33,17 +34,18 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const SplashPage(),
+      home: const HomePage(),
       routes: {
         HomePage.id: (context) => HomePage(),
         RegisterPage.id: (context) => RegisterPage(),
         SignUp.id: (context) => SignUp(),
         SignIn.id: (context) => SignIn(),
-        NetworkPage.id: (context) => NetworkPage(),
-        ViewEmp.id: (context) => ViewEmp(name!, salary, age),
+        // NetworkPage.id: (context) => NetworkPage(),
+        // ViewEmp.id: (context) => ViewEmp(name!, salary, age),
         SignInPage.id: (context) => SignInPage(),
         SplashPage.id: (context) => SplashPage(),
-        SignUpPage.id: (context) => SignUpPage()
+        SignUpPage.id: (context) => SignUpPage(),
+        CreatePage.id: (context) => CreatePage()
       },
     );
   }
