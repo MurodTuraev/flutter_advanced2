@@ -84,6 +84,12 @@ class _HomePageState extends State<HomePage> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Container(
+                  height: 200,
+                  width: 371,
+                  child: Image.network(post.img_url!, fit: BoxFit.cover,),
+                ),
+                SizedBox(height: 10,),
                 Row(
                   children: [
                     Text(post.first_name!, style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20),),

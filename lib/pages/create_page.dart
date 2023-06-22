@@ -1,5 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced2/sevice/rtdb_service.dart';
+import 'package:flutter_advanced2/sevice/store_service.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../model/post.dart';
 
@@ -17,6 +21,9 @@ class _CreatePageState extends State<CreatePage> {
   var contentController = TextEditingController();
   var dateController = TextEditingController();
 
+  File? _image;
+  final picker = ImagePicker();
+
   _createPost(){
     String name = nameController.text.toString();
     String last_name = lastNameController.text.toString();
@@ -26,11 +33,17 @@ class _CreatePageState extends State<CreatePage> {
 
     if(name.isEmpty || last_name.isEmpty || content.isEmpty || date.isEmpty) return;
 
-    _apiCreatePost(name, last_name, content, date);
+    _apiUploadImage(name, last_name, content, date);
   }
 
-  _apiCreatePost(String name, String last_name, String content, String date){
-    var post = Post(name, last_name, content, date);
+  _apiUploadImage(String name, String last_name, String content, String date){
+    StoreService.uploadImage(_image!).then((img_url) => {
+      _apiCreatePost(name, last_name, content, date, img_url)
+    });
+  }
+
+  _apiCreatePost(String name, String last_name, String content, String date, String img_url){
+    var post = Post(name, last_name, content, date, img_url);
     RtdbService.addPost(post).then((value) => {
       _resAddPost(),
     });
@@ -38,6 +51,19 @@ class _CreatePageState extends State<CreatePage> {
 
   _resAddPost(){
     Navigator.of(context).pop({'data':'done'});
+  }
+
+  Future _getImage() async{
+    final pickedImage = await picker.getImage(source: ImageSource.gallery);
+
+    setState(() {
+      if(pickedImage != null){
+        _image = File(pickedImage.path);
+      }else{
+        print("No image");
+      }
+    });
+
   }
 
   @override
@@ -55,6 +81,16 @@ class _CreatePageState extends State<CreatePage> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                GestureDetector(
+                  onTap: _getImage,
+                  child: Container(
+                    height: 100,
+                    width: 100,
+                    child: _image != null ? Image.file(_image!, fit: BoxFit.cover,) :
+                    Image.asset('assets/images/default.png'),
+                  ),
+                ),
+                SizedBox(height: 15,),
                 TextField(
                   controller: nameController,
                   decoration: InputDecoration(

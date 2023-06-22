@@ -20,7 +20,7 @@ class RtdbService{
     for (var child in snapshop.children){
       var jsonPost = jsonEncode(child.value);
       Map<String, dynamic> map = jsonDecode(jsonPost);
-      var post = Post(map['first_name'], map['last_name'], map['content'], map['date']);
+      var post = Post(map['first_name'], map['last_name'], map['content'], map['date'], map['img_url']);
       item.add(post);
     }
     return item;
